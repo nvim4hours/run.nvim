@@ -60,6 +60,11 @@ end
 
 function M.setup(opts)
   if opts then config = vim.tbl_deep_extend("force", config, opts) end
+
+  vim.api.nvim_create_user_command('RunCode', function(opts)
+      M.run()
+  end, { nargs = 0 })
+  
 end
 
 return M
