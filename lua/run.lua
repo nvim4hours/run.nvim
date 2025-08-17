@@ -14,7 +14,7 @@ local config = {
 }
 
 local function random_char()
-  local characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*)(-=][\';\"/.,_+}{|:?><"
+  local characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   local random_index = math.random(1, string.len(characters))
   local picked_character = string.sub(characters, random_index, random_index)
   return picked_character
@@ -32,7 +32,8 @@ function M.run()
       vim.cmd(config.split_cmd)
       vim.cmd("enew")
       local buf = vim.api.nvim_get_current_buf()
-      vim.api.nvim_buf_set_name(buf, "crunner: " .. name .. "." .. ext .. "_" .. random_char() .. random_char())
+      local random_chars = random_char() .. random_char() .. random_char()
+      vim.api.nvim_buf_set_name(buf, "crunner: " .. name .. "." .. ext .. "_" .. random_chars)
       vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
       vim.api.nvim_buf_set_option(buf, "bufhidden", "hide") -- hide on close
       vim.api.nvim_buf_set_option(buf, "buflisted", false)  -- not in tabline
